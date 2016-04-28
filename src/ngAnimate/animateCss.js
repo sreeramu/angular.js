@@ -363,7 +363,7 @@ var $AnimateCssProvider = ['$animateProvider', function($animateProvider) {
       var KEY = "$$ngAnimateParentKey";
       var parentNode = node.parentNode;
       var parentID = parentNode[KEY] || (parentNode[KEY] = ++parentCounter);
-      return parentID + '-' + node.getAttribute('class') + '-' + extraClasses;
+      return parentID + '-' + angular.isString(node.className) ? node.className : '' + '-' + extraClasses;
     }
 
     function computeCachedCssStyles(node, className, cacheKey, properties) {
@@ -892,7 +892,7 @@ var $AnimateCssProvider = ['$animateProvider', function($animateProvider) {
           $$jqLite.addClass(element, activeClasses);
 
           if (flags.recalculateTimingStyles) {
-            fullClassName = node.className + ' ' + preparationClasses;
+            fullClassName = node.getAttribute('class') + ' ' + preparationClasses;
             cacheKey = gcsHashFn(node, fullClassName);
 
             timings = computeTimings(node, fullClassName, cacheKey);
